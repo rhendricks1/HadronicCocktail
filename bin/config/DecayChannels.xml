@@ -66,6 +66,40 @@
 		<DecayProduct name="electron" />
 	</DecayChannel>
 
+	<DecayChannel name="pi0_gammaee_dalitz" parent="pi0" >
+		<DecayProduct name="photon" />
+		<DecayProduct name="electron" />
+		<DecayProduct name="electron" />
+	</DecayChannel>
+	
+	<DecayChannel name="eta_gammaee_dalitz" parent="eta" >
+		<DecayProduct name="photon" />
+		<DecayProduct name="electron" />
+		<DecayProduct name="electron" />
+	</DecayChannel>
+
+	<DecayChannel name="phi_etaee_dalitz" parent="phi" >
+		<DecayProduct name="eta" />
+		<DecayProduct name="electron" />
+		<DecayProduct name="electron" />
+	</DecayChannel>
+	
+	<DecayChannel name="etaprime_gammaee_dalitz" parent="etaprime" >
+		<DecayProduct name="photon" />
+		<DecayProduct name="electron" />
+		<DecayProduct name="electron" />
+	</DecayChannel>
+	
+	<DecayChannel name="phi_ee" parent="phi" >
+		<DecayProduct name="electron" />
+		<DecayProduct name="electron" />
+	</DecayChannel>
+	
+	<DecayChannel name="jpsi_ee" parent="jpsi" >
+		<DecayProduct name="electron" />
+		<DecayProduct name="electron" />
+	</DecayChannel>
+	
 	<DecayChannel name="omega_ee" parent="omega" >
 		<DecayProduct name="electron" />
 		<DecayProduct name="electron" />

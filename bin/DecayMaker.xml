@@ -50,7 +50,7 @@
 		</histograms>
 
 		<KinematicFilters>
-			<Include url="config/STAR_MTD.xml" />
+			<Include url="config/STAR_Dielectron.xml" />
 		</KinematicFilters>
 
 		<MomentumSmearing>{SMEAR}</MomentumSmearing>
