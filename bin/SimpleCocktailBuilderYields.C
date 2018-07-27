@@ -12,25 +12,21 @@
 //Run this in ROOT in HadronicCocktail/bin
 
 
-void SimpleCocktailBuilder () {
+void SimpleCocktailBuilderYields () {
 	TString momSmear = "";
 	TString decayMaker = "./hadronicCocktail.app DecayMaker.xml";
-	TString decayChannel[18] = {" --CHANNEL=omega_pi0mumu_dalitz",
-		" --CHANNEL=omega_pi0ee_dalitz"," --CHANNEL=omega_mumu",
-		" --CHANNEL=omega_ee"," --CHANNEL=eta_gammamumu_dalitz",
-		" --CHANNEL=eta_gammaee_dalitz"," --CHANNEL=eta_mumu",
-		" --CHANNEL=etaprime_gammamumu_dalitz"," --CHANNEL=etaprime_gammaee_dalitz",
-		" --CHANNEL=phi_gammamumu_dalitz"," --CHANNEL=phi_etaee_dalitz",
-		" --CHANNEL=phi_mumu"," --CHANNEL=phi_ee",
-		" --CHANNEL=pi0_gammaee_dalitz"," --CHANNEL=jpsi_mumu",
-		" --CHANNEL=jpsi_ee"," --CHANNEL=rho_mumu",
-		" --CHANNEL=psi_mumu"};
-	Double_t branchingRatio[18] = {1.3e-4, 7.7e-4, 9.0e-5, 7.28e-5, 3.1e-4, 7.0e-3, 5.8e-6, 
-		1.08e-4, 4.7e-4, 1.4e-5, 1.15e-4, 2.87e-4, 2.954e-4, 1.174e-2, 5.96e-2, 5.94e-2, 4.55e-5, 8.0e-3};
-	Double_t dNdY[18] = {1.33e-1, 1.33e-1, 1.33e-1, 1.33e-1, 1.7e-1, 1.7e-1, 1.7e-1, 
-		4.07e-2, 4.07e-2, 1.73e-2, 1.73e-2, 1.73e-2, 1.73e-2, 1.28, 2.44e-5, 2.44e-5, 2.22e-1, 2.44e-5};
-	Int_t colorWheel[18]={5,41,46,42,2,6,29, 11,
-		7,4,9,7,3,8,28,38,30,33};
+	TString decayChannel[8] = {" --CHANNEL=omega_pi0ee_dalitz",
+		" --CHANNEL=omega_ee"," --CHANNEL=eta_gammaee_dalitz",
+		" --CHANNEL=etaprime_gammaee_dalitz"," --CHANNEL=phi_etaee_dalitz",
+		" --CHANNEL=phi_ee"," --CHANNEL=pi0_gammaee_dalitz",
+		" --CHANNEL=jpsi_ee"};
+	Double_t branchingRatio[8] = {7.7e-4, 7.28e-5, 7.0e-3, 
+		4.7e-4, 1.15e-4, 2.954e-4, 1.174e-2, 5.94e-2};
+	/*the dNdY array should be in this format: {omega yield, omega yield, eta yield, etaprime yield,
+	phi yield, phi yield, pi0 yield, jpsi yield}	*/
+	Double_t dNdY[8] = {2.645, 2.645, 3.544, 0.2193,
+	0.6969, 0.6969, 41.28, 7.760e-5};
+	Int_t colorWheel[8]={5,41,46,42,2,6,29,11};
 	TH1D* hsum = new TH1D("hsum", "",1000,0,5);
 	TString MC = "Cocktail_";
 	TString r = "_{mod}.root";
@@ -73,7 +69,7 @@ void SimpleCocktailBuilder () {
     hsum->SetAxisRange(0,5,"X");
     hsum->Draw();
     c1->SetLogy(1);
-	for (int i = 0; i < 18; ++i) {
+	for (int i = 0; i < 8; ++i) {
 		TString channel = decayChannel[i];
 		Double_t scale = 1;
 		TString command; command += decayMaker; command += channel; command += momSmear; command += N;
@@ -98,8 +94,8 @@ void SimpleCocktailBuilder () {
 			TH1D *h1 = (TH1D*)f1->Get("PairCut_dNdM");
 			cout <<"h1=" << h1 << endl;
             h1->SetDirectory(0);
-			scale = branchingRatio[i] * dNdY[i] * 2 / 100000; 
-			h1->Scale(scale, "width");
+			scale = branchingRatio[i] * dNdY[i] * 2 / 100000;
+			h1->Scale(scale,"width");
 			h1->SetLineColor(color);
 			h1->Draw("same HIST");
 			hsum->Add(h1,1);
@@ -109,7 +105,7 @@ void SimpleCocktailBuilder () {
 			cout <<"h1=" << h1 << endl;
             h1->SetDirectory(0);
 			Double_t entries = h1->GetEntries();
-			scale *= branchingRatio[i] * dNdY[i] * 2 * (entries/100000) / 100000;
+			scale = branchingRatio[i] * dNdY[i] * 2 * (entries/100000) / 100000;
 			h1->Scale(scale, "width");
 			h1->SetLineColor(color);
 			h1->Draw("same HIST");
@@ -119,6 +115,6 @@ void SimpleCocktailBuilder () {
 	}
 	hsum->SetAxisRange(1e-8,1e-1,"Y");
 	//c1->BuildLegend();
-	TString Name; Name = "Full_Cocktail_" + cut + "_" + smearName + ".pdf";
+	TString Name; Name = "Electron_Cocktail_" + cut + "_" + smearName + ".pdf";
 	c1->Print(Name,"pdf");
 }

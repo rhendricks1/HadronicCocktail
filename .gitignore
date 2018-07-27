@@ -31,7 +31,7 @@
 
 #Scons
 *.sconsign.dblite
-
+scons
 
 #debug configs
 *_out.xml
@@ -50,3 +50,4 @@ bin/list
 *.json
 bin/lists
 *.log
+bin/*.d

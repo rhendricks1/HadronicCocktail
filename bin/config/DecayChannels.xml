@@ -130,6 +130,11 @@
 		<DecayProduct name="electron" />
 	</DecayChannel>
 
+	<DecayChannel name="rho_ee" parent="rho" >
+                <DecayProduct name="electron" />
+                <DecayProduct name="electron" />
+        </DecayChannel>
+
 
 
 </config>
